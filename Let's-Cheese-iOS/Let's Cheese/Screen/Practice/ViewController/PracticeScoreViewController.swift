@@ -73,6 +73,7 @@ class PracticeScoreViewController:UIViewController {
         view.addSubview(myScoreLabel)
         view.addSubview(scoreNumLabel)
         view.addSubview(buttonStackView)
+        scoreNumLabel.text = String(PracticeViewController.countRightAnswer)
     }
     
     func setLayout(){

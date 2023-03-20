@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class StudyViewController:UIViewController {
+class StudyViewController: UIViewController {
     
     //MARK: - Properties
     static var countPage = 0
@@ -42,14 +42,14 @@ class StudyViewController:UIViewController {
     }
     
     //MARK: - Function
-    func setViewHierarchy(){
+    func setViewHierarchy() {
         view.addSubview(numView)
         view.addSubview(emotionView)
         numView.backgroundColor = .background1
         emotionView.backgroundColor = .background1
     }
     
-    func setLayout(){
+    func setLayout() {
         numView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(106)
             make.height.equalTo(100)
@@ -62,7 +62,7 @@ class StudyViewController:UIViewController {
         }
     }
     
-    func setButtonEvent(){
+    func setButtonEvent() {
         emotionView.firstEmotionButton.addTarget(self, action: #selector(firstButtonTouchedEvent), for: .touchUpInside)
         emotionView.secondEmotionButton.addTarget(self, action: #selector(secondButtonTouchedEvent), for: .touchUpInside)
         emotionView.thirdEmotionButton.addTarget(self, action: #selector(thirdButtonTouchedEvent), for: .touchUpInside)
@@ -70,18 +70,18 @@ class StudyViewController:UIViewController {
         emotionView.nextButton.addTarget(self, action: #selector(nextButtonTapEvent), for: .touchUpInside)
     }
     
-    func buttonOn(button: UIButton){
+    func buttonOn(button: UIButton) {
         button.backgroundColor = .primary4
         button.layer.borderColor = UIColor.primary2.cgColor
         button.layer.borderWidth = 2
     }
     
-    func buttonOff(button: UIButton){
+    func buttonOff(button: UIButton) {
         button.backgroundColor = .primary2
         button.layer.borderColor = UIColor.primary2.cgColor
     }
     
-    func submitQuiz(){
+    func submitQuiz() {
         let alert = UIAlertController(title: "퀴즈를 제출할까요?", message: "퀴즈를 제출하면 답안을 수정할 수 없어요. 제출하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
 
         let accecptAction = UIAlertAction(title: "네", style: .default, handler: { okAction in
@@ -98,7 +98,7 @@ class StudyViewController:UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func setNavigationController(){
+    func setNavigationController() {
         let backButton = UIBarButtonItem()
         backButton.title = "감정학습 퀴즈"
         self.navigationController?.navigationBar.tintColor = UIColor.text1
@@ -126,7 +126,7 @@ class StudyViewController:UIViewController {
     
     //MARK: - @objc
     
-    @objc func firstButtonTouchedEvent(){
+    @objc func firstButtonTouchedEvent() {
         isButtonTap = true
         buttonOn(button: emotionView.firstEmotionButton)
         buttonOff(button: emotionView.secondEmotionButton)
@@ -134,7 +134,7 @@ class StudyViewController:UIViewController {
         buttonOff(button: emotionView.fourthEmotionButton)
     }
     
-    @objc func secondButtonTouchedEvent(){
+    @objc func secondButtonTouchedEvent() {
         isButtonTap = true
         buttonOn(button: emotionView.secondEmotionButton)
         buttonOff(button: emotionView.firstEmotionButton)
@@ -142,7 +142,7 @@ class StudyViewController:UIViewController {
         buttonOff(button: emotionView.fourthEmotionButton)
     }
     
-    @objc func thirdButtonTouchedEvent(){
+    @objc func thirdButtonTouchedEvent() {
         isButtonTap = true
         buttonOn(button: emotionView.thirdEmotionButton)
         buttonOff(button: emotionView.secondEmotionButton)
@@ -150,7 +150,7 @@ class StudyViewController:UIViewController {
         buttonOff(button: emotionView.fourthEmotionButton)
     }
     
-    @objc func fourthButtonTouchedEvent(){
+    @objc func fourthButtonTouchedEvent() {
         isButtonTap = true
         buttonOn(button: emotionView.fourthEmotionButton)
         buttonOff(button: emotionView.secondEmotionButton)
@@ -158,14 +158,14 @@ class StudyViewController:UIViewController {
         buttonOff(button: emotionView.firstEmotionButton)
     }
     
-    @objc func nextButtonTapEvent(){
-        if(isButtonTap){
+    @objc func nextButtonTapEvent() {
+        if(isButtonTap) {
             StudyViewController.countPage+=1
             
-            if(StudyViewController.countPage == 10){
+            if(StudyViewController.countPage == 10) {
                 StudyViewController.countPage = 0
                 submitQuiz()
-            } else{
+            } else {
                 labelArr[StudyViewController.countPage].textColor = .primary1
                 labelArr[StudyViewController.countPage-1].textColor = .text1
                 buttonOff(button: emotionView.fourthEmotionButton)
@@ -174,7 +174,7 @@ class StudyViewController:UIViewController {
                 buttonOff(button: emotionView.firstEmotionButton)
                 isButtonTap = false
             }
-        } else{
+        } else {
             showToast(message: "선택지를 골라주세요!", font: .bodyLarge)
         }
     }

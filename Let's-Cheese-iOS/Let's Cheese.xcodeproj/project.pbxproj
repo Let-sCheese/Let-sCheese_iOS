@@ -20,7 +20,12 @@
 		0569564829AC86C5002E8CF2 /* StudyScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569564729AC86C5002E8CF2 /* StudyScoreViewController.swift */; };
 		0569564A29AC86DB002E8CF2 /* PracticeScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569564929AC86DB002E8CF2 /* PracticeScoreViewController.swift */; };
 		0569564D29AE2E91002E8CF2 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 0569564C29AE2E91002E8CF2 /* Moya */; };
-		0569566129B70BF7002E8CF2 /* checkEmotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569566029B70BF7002E8CF2 /* checkEmotionModel.swift */; };
+		0569566129B70BF7002E8CF2 /* CheckEmotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569566029B70BF7002E8CF2 /* CheckEmotionRequest.swift */; };
+		056956EB29C7FB45002E8CF2 /* EmotionCheckRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056956EA29C7FB45002E8CF2 /* EmotionCheckRouter.swift */; };
+		056956ED29C7FD5F002E8CF2 /* BaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056956EC29C7FD5F002E8CF2 /* BaseURL.swift */; };
+		056956EF29C7FF44002E8CF2 /* CheckEmotionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056956EE29C7FF44002E8CF2 /* CheckEmotionResponse.swift */; };
+		056956F729C80B67002E8CF2 /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056956F629C80B67002E8CF2 /* AnswerViewController.swift */; };
+		056956FA29C83218002E8CF2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056956F929C83218002E8CF2 /* LoadingView.swift */; };
 		0589C96529A138CB00C29144 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C96429A138CB00C29144 /* AppDelegate.swift */; };
 		0589C96729A138CB00C29144 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C96629A138CB00C29144 /* SceneDelegate.swift */; };
 		0589C96929A138CB00C29144 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0589C96829A138CB00C29144 /* TabBarController.swift */; };
@@ -51,7 +56,12 @@
 		0569564529A8CD4E002E8CF2 /* TopNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNumberView.swift; sourceTree = "<group>"; };
 		0569564729AC86C5002E8CF2 /* StudyScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyScoreViewController.swift; sourceTree = "<group>"; };
 		0569564929AC86DB002E8CF2 /* PracticeScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeScoreViewController.swift; sourceTree = "<group>"; };
-		0569566029B70BF7002E8CF2 /* checkEmotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkEmotionModel.swift; sourceTree = "<group>"; };
+		0569566029B70BF7002E8CF2 /* CheckEmotionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckEmotionRequest.swift; sourceTree = "<group>"; };
+		056956EA29C7FB45002E8CF2 /* EmotionCheckRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionCheckRouter.swift; sourceTree = "<group>"; };
+		056956EC29C7FD5F002E8CF2 /* BaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseURL.swift; sourceTree = "<group>"; };
+		056956EE29C7FF44002E8CF2 /* CheckEmotionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckEmotionResponse.swift; sourceTree = "<group>"; };
+		056956F629C80B67002E8CF2 /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
+		056956F929C83218002E8CF2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0589C96129A138CB00C29144 /* Let's Cheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let's Cheese.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0589C96429A138CB00C29144 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0589C96629A138CB00C29144 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +120,52 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		056956E829C7FAC9002E8CF2 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				0569566029B70BF7002E8CF2 /* CheckEmotionRequest.swift */,
+				056956EE29C7FF44002E8CF2 /* CheckEmotionResponse.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		056956E929C7FB12002E8CF2 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				056956EA29C7FB45002E8CF2 /* EmotionCheckRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		056956F329C80B05002E8CF2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0589C98629A13D1200C29144 /* PracticeViewController.swift */,
+				0569563E29A60349002E8CF2 /* PracticeStartViewController.swift */,
+				0569564929AC86DB002E8CF2 /* PracticeScoreViewController.swift */,
+				056956F629C80B67002E8CF2 /* AnswerViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		056956F829C8320A002E8CF2 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				056956F929C83218002E8CF2 /* LoadingView.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		056956FB29C84C62002E8CF2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0589C98429A13D0300C29144 /* StudyViewController.swift */,
+				0569563C29A5F9FD002E8CF2 /* StudyStartViewController.swift */,
+				0569564729AC86C5002E8CF2 /* StudyScoreViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		0589C95829A138CB00C29144 = {
 			isa = PBXGroup;
 			children = (
@@ -129,7 +185,6 @@
 		0589C96329A138CB00C29144 /* Let's Cheese */ = {
 			isa = PBXGroup;
 			children = (
-				0589C97B29A13AA600C29144 /* LocalDB */,
 				0589C97829A13A7800C29144 /* Network */,
 				0589C97A29A13A9D00C29144 /* Screen */,
 				0589C97929A13A9600C29144 /* Global */,
@@ -141,7 +196,9 @@
 		0589C97829A13A7800C29144 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				0569566029B70BF7002E8CF2 /* checkEmotionModel.swift */,
+				056956E929C7FB12002E8CF2 /* Router */,
+				056956E829C7FAC9002E8CF2 /* DTO */,
+				056956EC29C7FD5F002E8CF2 /* BaseURL.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -149,6 +206,7 @@
 		0589C97929A13A9600C29144 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				056956F829C8320A002E8CF2 /* Loading */,
 				0589C97E29A13B0600C29144 /* Resource */,
 				0589C97D29A13AE200C29144 /* Extension */,
 				0589C97C29A13ADB00C29144 /* Support */,
@@ -167,13 +225,6 @@
 				0589C96829A138CB00C29144 /* TabBarController.swift */,
 			);
 			path = Screen;
-			sourceTree = "<group>";
-		};
-		0589C97B29A13AA600C29144 /* LocalDB */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LocalDB;
 			sourceTree = "<group>";
 		};
 		0589C97C29A13ADB00C29144 /* Support */ = {
@@ -226,10 +277,8 @@
 		0589C99B29A1565600C29144 /* Study */ = {
 			isa = PBXGroup;
 			children = (
+				056956FB29C84C62002E8CF2 /* ViewController */,
 				0569563729A345F8002E8CF2 /* View */,
-				0589C98429A13D0300C29144 /* StudyViewController.swift */,
-				0569563C29A5F9FD002E8CF2 /* StudyStartViewController.swift */,
-				0569564729AC86C5002E8CF2 /* StudyScoreViewController.swift */,
 			);
 			path = Study;
 			sourceTree = "<group>";
@@ -237,10 +286,8 @@
 		0589C99C29A1565D00C29144 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
+				056956F329C80B05002E8CF2 /* ViewController */,
 				0569564429A8CD40002E8CF2 /* View */,
-				0589C98629A13D1200C29144 /* PracticeViewController.swift */,
-				0569563E29A60349002E8CF2 /* PracticeStartViewController.swift */,
-				0569564929AC86DB002E8CF2 /* PracticeScoreViewController.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -337,17 +384,22 @@
 			files = (
 				0569563B29A35310002E8CF2 /* SelectView.swift in Sources */,
 				0589C98529A13D0300C29144 /* StudyViewController.swift in Sources */,
+				056956EF29C7FF44002E8CF2 /* CheckEmotionResponse.swift in Sources */,
 				0589C98D29A146E500C29144 /* UIFont+.swift in Sources */,
+				056956EB29C7FB45002E8CF2 /* EmotionCheckRouter.swift in Sources */,
 				0589C98B29A1410E00C29144 /* UIColor+.swift in Sources */,
 				0569563929A346DB002E8CF2 /* NumberView.swift in Sources */,
 				0589C96929A138CB00C29144 /* TabBarController.swift in Sources */,
+				056956FA29C83218002E8CF2 /* LoadingView.swift in Sources */,
 				0589C96529A138CB00C29144 /* AppDelegate.swift in Sources */,
 				0569563129A304CF002E8CF2 /* PracticeView.swift in Sources */,
+				056956F729C80B67002E8CF2 /* AnswerViewController.swift in Sources */,
 				0569564329A8BF26002E8CF2 /* PictureCVC.swift in Sources */,
 				0569564629A8CD4E002E8CF2 /* TopNumberView.swift in Sources */,
-				0569566129B70BF7002E8CF2 /* checkEmotionModel.swift in Sources */,
+				0569566129B70BF7002E8CF2 /* CheckEmotionRequest.swift in Sources */,
 				0569564829AC86C5002E8CF2 /* StudyScoreViewController.swift in Sources */,
 				0589C98729A13D1200C29144 /* PracticeViewController.swift in Sources */,
+				056956ED29C7FD5F002E8CF2 /* BaseURL.swift in Sources */,
 				0569563329A304DB002E8CF2 /* GalleryView.swift in Sources */,
 				0589C98929A13D1D00C29144 /* PictureViewController.swift in Sources */,
 				0569563F29A60349002E8CF2 /* PracticeStartViewController.swift in Sources */,

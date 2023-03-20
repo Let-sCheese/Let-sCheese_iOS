@@ -7,16 +7,25 @@
 
 import Foundation
 import UIKit
+
+import Moya
 import SnapKit
 
 class PracticeViewController:UIViewController {
     
     //MARK: - Properties
-    static var countPage = 0
-    static var isButtonTap = false
-    static var isPictureTaken = false
+    
+    private let topNumberView = TopNumberView()
+    private let emotionCheckProvider = MoyaProvider<EmotionCheckRouter>()
+    private let emotionLabelList: [String] = ["슬픔", "기쁨", "분노", "놀람", "평온함"]
+    private var isButtonTap = false
+    private var isPictureTaken = false
+    private var emotionLabel = ""
+    static var isAnswerRight = 0
+    static var countRightAnswer = 0
     
     //MARK: - UI Component
+    
     lazy var labelArr: [UILabel] = [
         topNumberView.one,
         topNumberView.two,
@@ -48,10 +57,9 @@ class PracticeViewController:UIViewController {
         camera.delegate = self
         return camera
     }()
-    
-    private let topNumberView = TopNumberView()
-    
+        
     //MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -59,14 +67,18 @@ class PracticeViewController:UIViewController {
         setViewHierarchy()
         setLayout()
         setButtonEvent()
+        setEmotionRandomly()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ifPhotoTaken()
+        takePhotoButton.setTitle("촬영하러 가기", for: .normal)
+        if(isPictureTaken) {
+            afterTakePictureLayout()
+        }
     }
     
-    //MARK: - Function
+    //MARK: - Essential Function
     
     func setViewHierarchy(){
         view.addSubview(topNumberView)
@@ -102,20 +114,13 @@ class PracticeViewController:UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
-    func ifPhotoTaken(){
-        if(PracticeViewController.isPictureTaken){
-            afterTakePictureLayout()
-        }
-    }
-    
+    //MARK: - Extra Function
+
     func numberChange(){
-        if(StudyViewController.countPage == 10){
-            StudyViewController.countPage = 0
-            submitQuiz()
-        } else{
+        if(StudyViewController.countPage < 10){
             labelArr[StudyViewController.countPage].textColor = .primary1
             labelArr[StudyViewController.countPage-1].textColor = .text1
-            PracticeViewController.isButtonTap = false
+            isButtonTap = false
         }
     }
     
@@ -142,52 +147,88 @@ class PracticeViewController:UIViewController {
         takePhotoButton.setTitle("다음", for: .normal)
     }
     
-    func submitQuiz(){
-        let alert = UIAlertController(title: "퀴즈를 제출할까요?", message: "퀴즈를 제출하면 답안을 수정할 수 없어요. 제출하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
-        
-        let accecptAction = UIAlertAction(title: "네", style: .default, handler: { okAction in
-            let nextVC = PracticeScoreViewController()
-            self.navigationController?.pushViewController(nextVC, animated: true)
-        })
-        
-        let noAction = UIAlertAction(title: "아니오", style: .destructive, handler: { okAction in
-            self.navigationController?.popViewController(animated: true)
-        })
-        
-        alert.addAction(noAction)
-        alert.addAction(accecptAction)
-        present(alert, animated: true, completion: nil)
+    func setEmotionRandomly() {
+        topNumberView.emotionLabel.text = emotionLabelList.randomElement()
+        emotionLabel = topNumberView.emotionLabel.text ?? ""
     }
-
+    
+    ///사진 분석한 결과값 변환 -> int형으로 바꿔서 정답 표시
+    func checkAnswer(answer: CheckEmotionResponse) -> Int {
+        var emotionState: String
+        switch answer.emotion {
+        case "sadness":
+            emotionState = "슬픔"
+        case "happiness":
+            emotionState = "기쁨"
+        case "anger":
+            emotionState = "분노"
+        case "surprise":
+            emotionState = "놀람"
+        case "neutrality":
+            emotionState = "평온함"
+        default:
+            return -1
+        }
+        
+        ///문제와 사용자가 찍은 사진의 감정이 일치하는지 확인
+        if(emotionState == topNumberView.emotionLabel.text) {
+            PracticeViewController.countRightAnswer += 1
+            return 1
+        } else { return 0 }
+    }
+    
     //MARK: - @objc
+    
     @objc func takePictureButtonTapEvent(){
-        if(!PracticeViewController.isPictureTaken){
+        if(!isPictureTaken){
             present(camera, animated: true, completion: nil)
-            PracticeViewController.isPictureTaken = true
+            isPictureTaken = true
         } else{
             StudyViewController.countPage+=1
-            beforeTakePictureLayout()
             numberChange()
-            PracticeViewController.isPictureTaken = false
-            UIView.animate(withDuration: 0.5, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: nil)
+            beforeTakePictureLayout()
+            isPictureTaken = false
+            setEmotionRandomly()
+            self.navigationController?.pushViewController(AnswerViewController(), animated: true)
         }
     }
 }
     //MARK: - UIImagePicker Extension
-extension PracticeViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+
+extension PracticeViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
             topNumberView.photoView.image = image
-            PracticeViewController.isPictureTaken = true
+            isPictureTaken = true
+            postImage(image: image)
         }
         picker.dismiss(animated: true, completion: nil)
+        LoadingView.showLoading()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        PracticeViewController.isPictureTaken = false
+        isPictureTaken = false
         picker.dismiss(animated: true, completion: nil)
     }
 }
+//MARK: - set Server
 
+extension PracticeViewController {
+    func postImage(image: UIImage) {
+        emotionCheckProvider.request(.uploadFile(param: image)) { response in
+            switch response{
+            case .success(let moyaResponse):
+                do{
+                    let responseData = try moyaResponse.map(CheckEmotionResponse.self)
+                    print(responseData)
+                    PracticeViewController.isAnswerRight = self.checkAnswer(answer: responseData)
+                    LoadingView.hideLoading()
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                    print(err.localizedDescription)
+            }
+        }
+    }
+}

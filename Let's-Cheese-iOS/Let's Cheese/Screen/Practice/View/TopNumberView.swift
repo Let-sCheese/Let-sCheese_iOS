@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 class TopNumberView: UIView {
-
+    
     let one : UILabel = {
         let label = UILabel()
         label.text = "1"
@@ -90,7 +90,7 @@ class TopNumberView: UIView {
         return label
     }()
     
-    let emotionLabel : UILabel = {
+    var emotionLabel : UILabel = {
         let label = UILabel()
         label.text = "웃다"
         label.textAlignment = .center
@@ -104,7 +104,6 @@ class TopNumberView: UIView {
     
     let photoView : UIImageView = {
         let imageView = UIImageView()
-//        imageView.image = UIImage(named: "smilePicture.jpg")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isHidden = true

@@ -6,6 +6,10 @@
 //
 import Foundation
 
-struct checkEmotionModel : Codable {
+struct checkEmotionRequest: Codable {
+    var file: String
     
+    init(file: String) {
+        self.file = file
+    }
 }
