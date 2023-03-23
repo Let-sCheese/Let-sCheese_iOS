@@ -11,9 +11,15 @@ import SnapKit
 
 class StudyViewController: UIViewController {
     
+    var imageArr = [UIImage(named: "smilePicture.jpg"),UIImage(named: "anger"),UIImage(named: "happy2"),UIImage(named: "sad"),UIImage(named: "sad7"),UIImage(named: "surprised"),UIImage(named: "anger2"),UIImage(named: "happy3"),UIImage(named: "happy4"),UIImage(named: "suprised2")]
+    
+    var resultArr = ["happy","anger","happy","sad","sad","surprised","anger","happy","happy","surprised","surprised"]
+
     //MARK: - Properties
     static var countPage = 0
     private var isButtonTap = false
+    var selectedNum = Int()
+    var correctNum = 0
     lazy var labelArr: [UILabel] = [
         numView.one,
         numView.two,
@@ -24,12 +30,12 @@ class StudyViewController: UIViewController {
         numView.seven,
         numView.eight,
         numView.nine,
-        numView.ten,
+        numView.ten
     ]
     
     //MARK: - UI component
     let numView = NumberView()
-    let emotionView = SelectView()
+    var emotionView = SelectView()
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -39,6 +45,7 @@ class StudyViewController: UIViewController {
         setViewHierarchy()
         setLayout()
         setButtonEvent()
+        setImage()
     }
     
     //MARK: - Function
@@ -86,6 +93,7 @@ class StudyViewController: UIViewController {
 
         let accecptAction = UIAlertAction(title: "네", style: .default, handler: { okAction in
             let nextVC = StudyScoreViewController()
+            nextVC.totalScore = self.correctNum
             self.navigationController?.pushViewController(nextVC, animated: true)
         })
         
@@ -124,10 +132,29 @@ class StudyViewController: UIViewController {
             })
         }
     
+    func isCorrect(clickedBtn: Int) -> Bool {
+        switch resultArr[StudyViewController.countPage] {
+        case "happy":
+            if clickedBtn == 1 { return true }
+            else { return false }
+        case "anger":
+            if clickedBtn == 2 { return true }
+            else { return false }
+        case "sad":
+            if clickedBtn == 3 { return true }
+            else { return false }
+        case "surprised":
+            if clickedBtn == 4 { return true }
+            else { return false }
+        default: return false
+        }
+    }
+    
     //MARK: - @objc
     
     @objc func firstButtonTouchedEvent() {
         isButtonTap = true
+        self.selectedNum = 1
         buttonOn(button: emotionView.firstEmotionButton)
         buttonOff(button: emotionView.secondEmotionButton)
         buttonOff(button: emotionView.thirdEmotionButton)
@@ -136,6 +163,7 @@ class StudyViewController: UIViewController {
     
     @objc func secondButtonTouchedEvent() {
         isButtonTap = true
+        self.selectedNum = 2
         buttonOn(button: emotionView.secondEmotionButton)
         buttonOff(button: emotionView.firstEmotionButton)
         buttonOff(button: emotionView.thirdEmotionButton)
@@ -144,6 +172,7 @@ class StudyViewController: UIViewController {
     
     @objc func thirdButtonTouchedEvent() {
         isButtonTap = true
+        self.selectedNum = 3
         buttonOn(button: emotionView.thirdEmotionButton)
         buttonOff(button: emotionView.secondEmotionButton)
         buttonOff(button: emotionView.firstEmotionButton)
@@ -152,6 +181,7 @@ class StudyViewController: UIViewController {
     
     @objc func fourthButtonTouchedEvent() {
         isButtonTap = true
+        self.selectedNum = 4
         buttonOn(button: emotionView.fourthEmotionButton)
         buttonOff(button: emotionView.secondEmotionButton)
         buttonOff(button: emotionView.thirdEmotionButton)
@@ -160,8 +190,10 @@ class StudyViewController: UIViewController {
     
     @objc func nextButtonTapEvent() {
         if(isButtonTap) {
+            if self.isCorrect(clickedBtn: self.selectedNum) {
+                self.correctNum = self.correctNum + 1
+            }
             StudyViewController.countPage+=1
-            
             if(StudyViewController.countPage == 10) {
                 StudyViewController.countPage = 0
                 submitQuiz()
@@ -174,9 +206,14 @@ class StudyViewController: UIViewController {
                 buttonOff(button: emotionView.firstEmotionButton)
                 isButtonTap = false
             }
+            self.setImage()
         } else {
             showToast(message: "선택지를 골라주세요!", font: .bodyLarge)
         }
+    }
+    
+    func setImage() {
+        self.emotionView.quizImage.image = self.imageArr[StudyViewController.countPage]
     }
 }
 
