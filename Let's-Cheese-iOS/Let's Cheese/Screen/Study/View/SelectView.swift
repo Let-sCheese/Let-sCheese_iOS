@@ -11,9 +11,8 @@ import SnapKit
 
 class SelectView: UIView {
     
-    let quizImage : UIImageView = {
+    var quizImage : UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "smilePicture.jpg")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +21,7 @@ class SelectView: UIView {
     
     let firstEmotionButton : UIButton = {
         let btn = UIButton()
-        btn.setTitle("감정 1", for: .normal)
+        btn.setTitle("Happy", for: .normal)
         btn.titleLabel?.font = .bodyLarge
         btn.setTitleColor(.text1, for: .normal)
         btn.backgroundColor = .primary2
@@ -32,7 +31,7 @@ class SelectView: UIView {
     
     let secondEmotionButton : UIButton = {
         let btn = UIButton()
-        btn.setTitle("감정 2", for: .normal)
+        btn.setTitle("Anger", for: .normal)
         btn.titleLabel?.font = .bodyLarge
         btn.setTitleColor(.text1, for: .normal)
         btn.backgroundColor = .primary2
@@ -43,7 +42,7 @@ class SelectView: UIView {
     
     let thirdEmotionButton : UIButton = {
         let btn = UIButton()
-        btn.setTitle("감정 3", for: .normal)
+        btn.setTitle("Sad", for: .normal)
         btn.titleLabel?.font = .bodyLarge
         btn.setTitleColor(.text1, for: .normal)
         btn.backgroundColor = .primary2
@@ -54,7 +53,7 @@ class SelectView: UIView {
     
     let fourthEmotionButton : UIButton = {
         let btn = UIButton()
-        btn.setTitle("감정 4", for: .normal)
+        btn.setTitle("Surprised", for: .normal)
         btn.titleLabel?.font = .bodyLarge
         btn.setTitleColor(.text1, for: .normal)
         btn.backgroundColor = .primary2

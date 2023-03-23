@@ -11,6 +11,9 @@ import SnapKit
 
 class StudyScoreViewController:UIViewController {
     
+    
+    var totalScore = Int()
+    
     //MARK: - UIComponent
     private let myScoreLabel : UILabel = {
         let label = UILabel()
@@ -20,9 +23,9 @@ class StudyScoreViewController:UIViewController {
         return label
     }()
     
-    private let scoreNumLabel : UILabel = {
+    private var scoreNumLabel : UILabel = {
         let label = UILabel()
-        label.text = "10"
+//        label.text = "10"
         label.textColor = .secondary1
         label.font = .score
         return label
@@ -62,6 +65,7 @@ class StudyScoreViewController:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .primary2
+        setScoreNumLabel()
         setNavigationController()
         setViewHierarchy()
         setLayout()
@@ -123,5 +127,8 @@ class StudyScoreViewController:UIViewController {
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
+    func setScoreNumLabel() {
+        self.scoreNumLabel.text = String(self.totalScore)
+    }
 }
 
